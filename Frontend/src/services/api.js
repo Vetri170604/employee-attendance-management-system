@@ -2,7 +2,7 @@ import axios from "axios";
 const API = axios.create({
 
     baseURL:
-        " https://employee-attendance-management-system-ayem.onrender.com/api/auth/login"
+        "https://employee-attendance-management-system-ayem.onrender.com/api"
 
 });
 API.interceptors.request.use(
