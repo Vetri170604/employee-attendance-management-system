@@ -11,21 +11,9 @@ from werkzeug.security import (
 from models.user_model import (
     get_user_by_username
 )
-
-
-# =========================================
-# LOGIN
-# POST /api/auth/login
-# =========================================
-
 def login():
 
     data = request.get_json()
-
-    # -------------------------------------
-    # CHECK REQUEST BODY
-    # -------------------------------------
-
     if not data:
 
         return jsonify({
@@ -43,12 +31,6 @@ def login():
     password = data.get(
         "password"
     )
-
-
-    # -------------------------------------
-    # VALIDATE INPUT
-    # -------------------------------------
-
     if not username:
 
         return jsonify({
@@ -67,21 +49,11 @@ def login():
             "Password is required"
 
         }), 400
-
-
     try:
-
-        # ---------------------------------
-        # FIND USER
-        # ---------------------------------
-
         user = get_user_by_username(
 
             username
-
         )
-
-
         if not user:
 
             return jsonify({
@@ -90,21 +62,11 @@ def login():
                 "Invalid username or password"
 
             }), 401
-
-
-        # ---------------------------------
-        # VERIFY PASSWORD
-        # ---------------------------------
-
         password_is_valid = check_password_hash(
 
             user["password"],
-
             password
-
         )
-
-
         if not password_is_valid:
 
             return jsonify({
@@ -113,12 +75,6 @@ def login():
                 "Invalid username or password"
 
             }), 401
-
-
-        # ---------------------------------
-        # CREATE JWT TOKEN
-        # ---------------------------------
-
         access_token = create_access_token(
 
             identity=str(
@@ -136,12 +92,6 @@ def login():
             }
 
         )
-
-
-        # ---------------------------------
-        # SUCCESS RESPONSE
-        # ---------------------------------
-
         return jsonify({
 
             "message":
@@ -164,7 +114,6 @@ def login():
             }
 
         }), 200
-
 
     except Exception as error:
 

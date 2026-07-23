@@ -17,15 +17,7 @@ function EmployeeForm({
     return (
 
         <div className="modal-overlay">
-
-
             <div className="employee-modal">
-
-
-                {/* =================================
-                    MODAL HEADER
-                ================================= */}
-
                 <div className="modal-header">
 
                     <div>
@@ -78,12 +70,6 @@ function EmployeeForm({
                     </button>
 
                 </div>
-
-
-                {/* =================================
-                    FORM
-                ================================= */}
-
                 <form
 
                     onSubmit={handleSubmit}
@@ -321,12 +307,6 @@ function EmployeeForm({
 
 
                     </div>
-
-
-                    {/* =================================
-                        MODAL ACTIONS
-                    ================================= */}
-
                     <div className="modal-actions">
 
 

@@ -2,10 +2,6 @@ CREATE DATABASE IF NOT EXISTS attendance_system;
 
 USE attendance_system;
 
--- =========================
--- USERS TABLE
--- =========================
-
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
@@ -16,10 +12,6 @@ CREATE TABLE users (
         ON UPDATE CURRENT_TIMESTAMP
 );
 
-
--- =========================
--- EMPLOYEES TABLE
--- =========================
 
 CREATE TABLE employees (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,11 +27,6 @@ CREATE TABLE employees (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ON UPDATE CURRENT_TIMESTAMP
 );
-
-
--- =========================
--- ATTENDANCE TABLE
--- =========================
 
 CREATE TABLE attendance (
     id INT AUTO_INCREMENT PRIMARY KEY,

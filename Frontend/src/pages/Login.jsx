@@ -1,22 +1,12 @@
 import { useState } from "react";
-
 import {
     useNavigate
 } from "react-router-dom";
-
 import API from "../services/api.js";
-
-
 function Login() {
 
     const navigate =
         useNavigate();
-
-
-    // =========================
-    // Form State
-    // =========================
-
     const [formData, setFormData] = useState({
 
         username: "",
@@ -24,24 +14,12 @@ function Login() {
         password: ""
 
     });
-
-
-    // =========================
-    // Error State
-    // =========================
-
     const [error, setError] =
         useState("");
 
 
     const [loading, setLoading] =
         useState(false);
-
-
-    // =========================
-    // Handle Input
-    // =========================
-
     const handleChange = (event) => {
 
         const {
@@ -59,12 +37,6 @@ function Login() {
         });
 
     };
-
-
-    // =========================
-    // Login
-    // =========================
-
     const handleSubmit = async (event) => {
 
         event.preventDefault();
@@ -81,10 +53,6 @@ function Login() {
                 "Sending Login Request:",
                 formData
             );
-
-
-            // Call Flask API
-
             const response =
                 await API.post(
 
@@ -107,31 +75,14 @@ function Login() {
                 "Login Response:",
                 response.data
             );
-
-
-            // =========================
-            // Save JWT Token
-            // =========================
-
             localStorage.setItem(
-
                 "access_token",
-
                 response.data.access_token
-
             );
-
-
             console.log(
                 "JWT Saved:",
                 response.data.access_token
             );
-
-
-            // =========================
-            // Save Username
-            // =========================
-
             localStorage.setItem(
 
                 "username",
@@ -140,12 +91,6 @@ function Login() {
                 formData.username
 
             );
-
-
-            // =========================
-            // Save Role
-            // =========================
-
             localStorage.setItem(
 
                 "role",
@@ -154,20 +99,12 @@ function Login() {
                 "Admin"
 
             );
-
-
             console.log(
                 "JWT Saved:",
                 localStorage.getItem(
                     "access_token"
                 )
             );
-
-
-            // =========================
-            // Go Dashboard
-            // =========================
-
             navigate(
                 "/dashboard"
             );
@@ -220,19 +157,7 @@ function Login() {
     return (
 
         <div className="login-page">
-
-
-            {/* =====================================
-                PREMIUM LOGIN CONTAINER
-            ===================================== */}
-
             <div className="login-container">
-
-
-                {/* =================================
-                    LEFT BRAND SECTION
-                ================================= */}
-
                 <div className="login-brand">
 
 
@@ -319,12 +244,6 @@ function Login() {
 
 
                 </div>
-
-
-                {/* =================================
-                    RIGHT LOGIN SECTION
-                ================================= */}
-
                 <div className="login-card">
 
 

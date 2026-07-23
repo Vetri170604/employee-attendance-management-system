@@ -7,13 +7,6 @@ from models.employee_model import (
     update_employee,
     delete_employee
 )
-
-
-# =========================================
-# CREATE EMPLOYEE
-# POST /api/employees
-# =========================================
-
 def add_employee():
 
     data = request.get_json()
@@ -67,13 +60,6 @@ def add_employee():
                 str(error)
 
         }), 500
-
-
-# =========================================
-# GET ALL EMPLOYEES
-# GET /api/employees
-# =========================================
-
 def get_employees():
 
     try:
@@ -103,13 +89,6 @@ def get_employees():
                 str(error)
 
         }), 500
-
-
-# =========================================
-# GET EMPLOYEE BY ID
-# GET /api/employees/<employee_id>
-# =========================================
-
 def get_employee(employee_id):
 
     try:
@@ -151,13 +130,6 @@ def get_employee(employee_id):
                 str(error)
 
         }), 500
-
-
-# =========================================
-# UPDATE EMPLOYEE
-# PUT /api/employees/<employee_id>
-# =========================================
-
 def edit_employee(employee_id):
 
     data = request.get_json()
@@ -236,12 +208,6 @@ def edit_employee(employee_id):
                 str(error)
 
         }), 500
-
-
-# =========================================
-# DELETE EMPLOYEE
-# DELETE /api/employees/<employee_id>
-# =========================================
 
 def remove_employee(employee_id):
 

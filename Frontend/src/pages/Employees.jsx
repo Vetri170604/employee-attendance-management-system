@@ -14,11 +14,6 @@ import Toast
 
 
 function Employees() {
-
-    // =====================================
-    // STATE
-    // =====================================
-
     const [employees, setEmployees] = useState([]);
 
     const [loading, setLoading] = useState(true);
@@ -42,12 +37,6 @@ function Employees() {
         message: "",
         type: "success"
     });
-
-
-    // =====================================
-    // FORM DATA
-    // =====================================
-
     const [formData, setFormData] = useState({
 
         employee_code: "",
@@ -65,12 +54,6 @@ function Employees() {
         status: "Active"
 
     });
-
-
-    // =====================================
-    // FETCH EMPLOYEES
-    // =====================================
-
     const fetchEmployees = async () => {
 
         try {
@@ -85,20 +68,6 @@ function Employees() {
                 "Employees API Response:",
                 response.data
             );
-
-
-            /*
-                Supports:
-
-                {
-                    data: [...]
-                }
-
-                OR
-
-                [...]
-            */
-
             const employeeData =
                 Array.isArray(response.data)
                     ? response.data
@@ -128,23 +97,11 @@ function Employees() {
         }
 
     };
-
-
-    // =====================================
-    // INITIAL LOAD
-    // =====================================
-
     useEffect(() => {
 
         fetchEmployees();
 
     }, []);
-
-
-    // =====================================
-    // TOAST
-    // =====================================
-
     const showToast = (
         message,
         type = "success"
@@ -159,12 +116,6 @@ function Employees() {
         });
 
     };
-
-
-    // =====================================
-    // HANDLE FORM CHANGE
-    // =====================================
-
     const handleChange = (event) => {
 
         const {
@@ -182,12 +133,6 @@ function Employees() {
         }));
 
     };
-
-
-    // =====================================
-    // RESET FORM
-    // =====================================
-
     const resetForm = () => {
 
         setFormData({
@@ -209,12 +154,6 @@ function Employees() {
         });
 
     };
-
-
-    // =====================================
-    // ADD EMPLOYEE
-    // =====================================
-
     const handleAdd = () => {
 
         setEditingEmployee(null);
@@ -224,12 +163,6 @@ function Employees() {
         setShowForm(true);
 
     };
-
-
-    // =====================================
-    // EDIT EMPLOYEE
-    // =====================================
-
     const handleEdit = (employee) => {
 
         console.log(
@@ -274,12 +207,6 @@ function Employees() {
         setShowForm(true);
 
     };
-
-
-    // =====================================
-    // ADD / UPDATE EMPLOYEE
-    // =====================================
-
     const handleSubmit = async (event) => {
 
         event.preventDefault();
@@ -370,12 +297,6 @@ function Employees() {
         }
 
     };
-
-
-    // =====================================
-    // DELETE EMPLOYEE
-    // =====================================
-
     const handleDelete = async (id) => {
 
         const confirmed =
@@ -438,12 +359,6 @@ function Employees() {
         }
 
     };
-
-
-    // =====================================
-    // DEPARTMENTS
-    // =====================================
-
     const departments = useMemo(() => {
 
         return [
@@ -464,12 +379,6 @@ function Employees() {
         ];
 
     }, [employees]);
-
-
-    // =====================================
-    // FILTER EMPLOYEES
-    // =====================================
-
     const filteredEmployees = useMemo(() => {
 
         return employees.filter(
@@ -567,12 +476,6 @@ function Employees() {
         statusFilter
 
     ]);
-
-
-    // =====================================
-    // LOADING
-    // =====================================
-
     if (loading) {
 
         return (
@@ -595,12 +498,6 @@ function Employees() {
         );
 
     }
-
-
-    // =====================================
-    // UI
-    // =====================================
-
     return (
 
         <div className="page-content">
@@ -641,12 +538,6 @@ function Employees() {
                 </button>
 
             </div>
-
-
-            {/* =================================
-                FILTER BAR
-            ================================= */}
-
             <div className="employee-filter-bar">
 
 
@@ -769,19 +660,9 @@ function Employees() {
 
             </div>
 
-
-            {/* =================================
-    EMPLOYEE TABLE
-================================= */}
-
 <div className="table-container">
 
     <table className="data-table">
-
-        {/* =================================
-            TABLE HEADER
-        ================================= */}
-
         <thead>
 
             <tr>
@@ -821,12 +702,6 @@ function Employees() {
             </tr>
 
         </thead>
-
-
-        {/* =================================
-            TABLE BODY
-        ================================= */}
-
         <tbody>
 
             {filteredEmployees.length > 0 ? (
@@ -834,12 +709,6 @@ function Employees() {
                 filteredEmployees.map((employee) => (
 
                     <tr key={employee.id}>
-
-
-                        {/* =========================
-                            EMPLOYEE CODE
-                        ========================== */}
-
                         <td>
 
                             <strong>
@@ -847,12 +716,6 @@ function Employees() {
                             </strong>
 
                         </td>
-
-
-                        {/* =========================
-                            NAME
-                        ========================== */}
-
                         <td>
 
                             <div className="employee-name-cell">
@@ -874,23 +737,11 @@ function Employees() {
                             </div>
 
                         </td>
-
-
-                        {/* =========================
-                            EMAIL
-                        ========================== */}
-
                         <td>
 
                             {employee.email || "-"}
 
                         </td>
-
-
-                        {/* =========================
-                            PHONE NUMBER
-                        ========================== */}
-
                         <td>
 
                             {employee.phone_number ||
@@ -900,12 +751,6 @@ function Employees() {
                              "-"}
 
                         </td>
-
-
-                        {/* =========================
-                            POSITION
-                        ========================== */}
-
                         <td>
 
                             {employee.position ||
@@ -914,23 +759,11 @@ function Employees() {
                              "-"}
 
                         </td>
-
-
-                        {/* =========================
-                            DEPARTMENT
-                        ========================== */}
-
                         <td>
 
                             {employee.department || "-"}
 
                         </td>
-
-
-                        {/* =========================
-                            STATUS
-                        ========================== */}
-
                         <td>
 
                             <span
@@ -947,12 +780,6 @@ function Employees() {
                             </span>
 
                         </td>
-
-
-                        {/* =========================
-                            ACTIONS
-                        ========================== */}
-
                         <td>
 
                             <div className="action-buttons">
@@ -998,12 +825,6 @@ function Employees() {
                 ))
 
             ) : (
-
-
-                /* =========================
-                   NO EMPLOYEES
-                ========================== */
-
                 <tr>
 
                     <td
@@ -1039,11 +860,6 @@ function Employees() {
     </table>
 
 </div>
-
-            {/* =================================
-                ADD / EDIT MODAL
-            ================================= */}
-
             {showForm && (
 
                 <EmployeeForm
@@ -1075,12 +891,6 @@ function Employees() {
                 />
 
             )}
-
-
-            {/* =================================
-                TOAST
-            ================================= */}
-
             <Toast
 
                 message={
@@ -1093,21 +903,12 @@ function Employees() {
 
                 onClose={() =>
                     setToast({
-
                         message: "",
-
                         type: "success"
-
                     })
                 }
-
             />
-
         </div>
-
     );
-
 }
-
-
 export default Employees;

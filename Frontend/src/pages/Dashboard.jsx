@@ -1,1005 +1,9 @@
-// import {
-//     useEffect,
-//     useState
-// } from "react";
-
-// import API from "../services/api.js";
-
-
-// function Dashboard() {
-
-//     // =====================================
-//     // STATE
-//     // =====================================
-
-//     const [statistics, setStatistics] =
-//         useState(null);
-
-
-//     const [loading, setLoading] =
-//         useState(true);
-
-
-//     const [error, setError] =
-//         useState("");
-
-
-//     // =====================================
-//     // LOAD DASHBOARD DATA
-//     // =====================================
-
-//     useEffect(() => {
-
-//         fetchDashboard();
-
-//     }, []);
-
-
-//     // =====================================
-//     // FETCH DASHBOARD API
-//     // =====================================
-
-//     const fetchDashboard = async () => {
-
-//         try {
-
-//             setLoading(true);
-
-//             setError("");
-
-
-//             console.log(
-//                 "Fetching dashboard data..."
-//             );
-
-
-//             const response =
-//                 await API.get(
-//                     "/dashboard/statistics"
-//                 );
-
-
-//             console.log(
-//                 "Dashboard Response:",
-//                 response.data
-//             );
-
-
-//             setStatistics(
-//                 response.data.data
-//             );
-
-
-//         } catch (error) {
-
-//             console.error(
-//                 "Dashboard Error:",
-//                 error
-//             );
-
-
-//             // =================================
-//             // JWT EXPIRED / INVALID
-//             // =================================
-
-//             if (
-//                 error.response?.status === 401
-//             ) {
-
-//                 localStorage.removeItem(
-//                     "access_token"
-//                 );
-
-
-//                 window.location.href =
-//                     "/login";
-
-
-//                 return;
-
-//             }
-
-
-//             // =================================
-//             // OTHER ERROR
-//             // =================================
-
-//             setError(
-//                 error.response?.data?.message ||
-//                 "Failed to load dashboard statistics"
-//             );
-
-
-//         } finally {
-
-//             setLoading(false);
-
-//         }
-
-//     };
-
-
-//     // =====================================
-//     // LOADING SCREEN
-//     // =====================================
-
-//     if (loading) {
-
-//         return (
-
-//             <div
-//                 className="dashboard-page"
-//                 style={{
-//                     padding: "30px"
-//                 }}
-//             >
-
-//                 <h1>
-//                     Dashboard
-//                 </h1>
-
-//                 <p>
-//                     Loading dashboard...
-//                 </p>
-
-//             </div>
-
-//         );
-
-//     }
-
-
-//     // =====================================
-//     // ERROR SCREEN
-//     // =====================================
-
-//     if (error) {
-
-//         return (
-
-//             <div
-//                 className="dashboard-page"
-//                 style={{
-//                     padding: "30px"
-//                 }}
-//             >
-
-//                 <h1>
-//                     Dashboard
-//                 </h1>
-
-
-//                 <p
-//                     className="error-message"
-//                     style={{
-//                         color: "red"
-//                     }}
-//                 >
-
-//                     {error}
-
-//                 </p>
-
-
-//                 <button
-//                     onClick={
-//                         fetchDashboard
-//                     }
-//                 >
-
-//                     Try Again
-
-//                 </button>
-
-//             </div>
-
-//         );
-
-//     }
-
-
-//     // =====================================
-//     // NO DATA
-//     // =====================================
-
-//     if (!statistics) {
-
-//         return (
-
-//             <div
-//                 className="dashboard-page"
-//                 style={{
-//                     padding: "30px"
-//                 }}
-//             >
-
-//                 <h1>
-//                     Dashboard
-//                 </h1>
-
-//                 <p>
-//                     No dashboard data available.
-//                 </p>
-
-//             </div>
-
-//         );
-
-//     }
-
-
-//     // =====================================
-//     // DASHBOARD UI
-//     // =====================================
-
-//     return (
-
-//         <div className="dashboard-page">
-
-
-//             {/* ============================== */}
-//             {/* PAGE HEADER */}
-//             {/* ============================== */}
-
-//             <div className="page-header">
-
-//                 <h1>
-//                     Dashboard
-//                 </h1>
-
-//                 <p>
-//                     Attendance Management Overview
-//                 </p>
-
-//             </div>
-
-
-//             {/* ============================== */}
-//             {/* STATISTICS CARDS */}
-//             {/* ============================== */}
-
-//             <div className="dashboard-cards">
-
-
-//                 {/* TOTAL EMPLOYEES */}
-
-//                 <div className="dashboard-card">
-
-//                     <div className="card-icon">
-//                         👥
-//                     </div>
-
-
-//                     <div>
-
-//                         <p>
-//                             Total Employees
-//                         </p>
-
-
-//                         <h2>
-
-//                             {
-//                                 statistics.total_employees
-//                             }
-
-//                         </h2>
-
-//                     </div>
-
-//                 </div>
-
-
-//                 {/* ACTIVE EMPLOYEES */}
-
-//                 <div className="dashboard-card">
-
-//                     <div className="card-icon">
-//                         ✅
-//                     </div>
-
-
-//                     <div>
-
-//                         <p>
-//                             Active Employees
-//                         </p>
-
-
-//                         <h2>
-
-//                             {
-//                                 statistics.active_employees
-//                             }
-
-//                         </h2>
-
-//                     </div>
-
-//                 </div>
-
-
-//                 {/* PRESENT TODAY */}
-
-//                 <div className="dashboard-card">
-
-//                     <div className="card-icon">
-//                         🟢
-//                     </div>
-
-
-//                     <div>
-
-//                         <p>
-//                             Present Today
-//                         </p>
-
-
-//                         <h2>
-
-//                             {
-//                                 statistics.present_today
-//                             }
-
-//                         </h2>
-
-//                     </div>
-
-//                 </div>
-
-
-//                 {/* ABSENT TODAY */}
-
-//                 <div className="dashboard-card">
-
-//                     <div className="card-icon">
-//                         🔴
-//                     </div>
-
-
-//                     <div>
-
-//                         <p>
-//                             Absent Today
-//                         </p>
-
-
-//                         <h2>
-
-//                             {
-//                                 statistics.absent_today
-//                             }
-
-//                         </h2>
-
-//                     </div>
-
-//                 </div>
-
-
-//             </div>
-
-
-//             {/* ============================== */}
-//             {/* DEPARTMENT STATISTICS */}
-//             {/* ============================== */}
-
-//             <div className="department-section">
-
-
-//                 <h2>
-//                     Department-wise Employee Count
-//                 </h2>
-
-
-//                 <div className="department-grid">
-
-
-//                     {
-//                         statistics.department_wise?.map(
-
-//                             (
-//                                 department,
-//                                 index
-//                             ) => (
-
-//                                 <div
-//                                     className="department-card"
-//                                     key={index}
-//                                 >
-
-
-//                                     <h3>
-
-//                                         {
-//                                             department.department
-//                                         }
-
-//                                     </h3>
-
-
-//                                     <p>
-//                                         Employees
-//                                     </p>
-
-
-//                                     <strong>
-
-//                                         {
-//                                             department.employee_count
-//                                         }
-
-//                                     </strong>
-
-
-//                                 </div>
-
-//                             )
-
-//                         )
-//                     }
-
-
-//                 </div>
-
-
-//             </div>
-
-
-//         </div>
-
-//     );
-
-// }
-
-
-// export default Dashboard;
-
-// // import { useEffect, useState } from "react";
-// // import API from "../services/api.js";
-
-// // function Dashboard() {
-
-// //     const [statistics, setStatistics] = useState(null);
-// //     const [loading, setLoading] = useState(true);
-// //     const [error, setError] = useState("");
-
-// //     // =========================================
-// //     // FETCH DASHBOARD DATA
-// //     // =========================================
-
-// //     const fetchDashboard = async () => {
-
-// //         try {
-
-// //             setLoading(true);
-// //             setError("");
-
-// //             const response = await API.get(
-// //                 "/dashboard"
-// //             );
-
-// //             console.log(
-// //                 "Dashboard Response:",
-// //                 response.data
-// //             );
-
-// //             setStatistics(
-// //                 response.data.data
-// //             );
-
-// //         } catch (error) {
-
-// //             console.error(
-// //                 "Dashboard Error:",
-// //                 error
-// //             );
-
-// //             if (
-// //                 error.response?.status === 401
-// //             ) {
-
-// //                 localStorage.clear();
-
-// //                 window.location.href =
-// //                     "/login";
-
-// //                 return;
-
-// //             }
-
-// //             setError(
-// //                 error.response?.data?.message ||
-// //                 "Failed to load dashboard"
-// //             );
-
-// //         } finally {
-
-// //             setLoading(false);
-
-// //         }
-
-// //     };
-
-
-// //     // =========================================
-// //     // LOAD DASHBOARD
-// //     // =========================================
-
-// //     useEffect(() => {
-
-// //         fetchDashboard();
-
-// //     }, []);
-
-
-// //     // =========================================
-// //     // LOADING
-// //     // =========================================
-
-// //     if (loading) {
-
-// //         return (
-
-// //             <div className="dashboard-page">
-
-// //                 <div className="dashboard-loading">
-
-// //                     <h2>
-// //                         Loading Dashboard...
-// //                     </h2>
-
-// //                     <p>
-// //                         Please wait while we load
-// //                         your dashboard data.
-// //                     </p>
-
-// //                 </div>
-
-// //             </div>
-
-// //         );
-
-// //     }
-
-
-// //     // =========================================
-// //     // ERROR
-// //     // =========================================
-
-// //     if (error) {
-
-// //         return (
-
-// //             <div className="dashboard-page">
-
-// //                 <div className="dashboard-error">
-
-// //                     <h2>
-// //                         Dashboard Error
-// //                     </h2>
-
-// //                     <p>
-// //                         {error}
-// //                     </p>
-
-// //                     <button
-// //                         onClick={fetchDashboard}
-// //                     >
-// //                         Try Again
-// //                     </button>
-
-// //                 </div>
-
-// //             </div>
-
-// //         );
-
-// //     }
-
-
-// //     if (!statistics) {
-
-// //         return (
-
-// //             <div className="dashboard-page">
-
-// //                 <h2>
-// //                     No Dashboard Data
-// //                 </h2>
-
-// //             </div>
-
-// //         );
-
-// //     }
-
-
-// //     // =========================================
-// //     // ATTENDANCE PERCENTAGE
-// //     // =========================================
-
-// //     const totalToday =
-
-// //         Number(
-// //             statistics.present_today || 0
-// //         ) +
-
-// //         Number(
-// //             statistics.absent_today || 0
-// //         );
-
-
-// //     const attendancePercentage =
-
-// //         totalToday > 0
-
-// //             ? (
-// //                 Number(
-// //                     statistics.present_today || 0
-// //                 ) /
-// //                 totalToday
-// //             ) * 100
-
-// //             : 0;
-
-
-// //     return (
-
-// //         <div className="dashboard-page">
-
-// //             {/* ================================= */}
-// //             {/* HEADER */}
-// //             {/* ================================= */}
-
-// //             <div className="dashboard-header">
-
-// //                 <div>
-
-// //                     <h1>
-// //                         Dashboard
-// //                     </h1>
-
-// //                     <p>
-// //                         Attendance Management Overview
-// //                     </p>
-
-// //                 </div>
-
-
-// //                 <button
-// //                     className="refresh-btn"
-// //                     onClick={fetchDashboard}
-// //                 >
-// //                     🔄 Refresh
-// //                 </button>
-
-// //             </div>
-
-
-// //             {/* ================================= */}
-// //             {/* STATISTICS CARDS */}
-// //             {/* ================================= */}
-
-// //             <div className="dashboard-cards">
-
-
-// //                 {/* Total Employees */}
-
-// //                 <div className="dashboard-card">
-
-// //                     <div className="dashboard-card-icon">
-// //                         👥
-// //                     </div>
-
-// //                     <div>
-
-// //                         <p>
-// //                             Total Employees
-// //                         </p>
-
-// //                         <h2>
-// //                             {
-// //                                 statistics.total_employees
-// //                             }
-// //                         </h2>
-
-// //                     </div>
-
-// //                 </div>
-
-
-// //                 {/* Active Employees */}
-
-// //                 <div className="dashboard-card">
-
-// //                     <div className="dashboard-card-icon">
-// //                         ✅
-// //                     </div>
-
-// //                     <div>
-
-// //                         <p>
-// //                             Active Employees
-// //                         </p>
-
-// //                         <h2>
-// //                             {
-// //                                 statistics.active_employees
-// //                             }
-// //                         </h2>
-
-// //                     </div>
-
-// //                 </div>
-
-
-// //                 {/* Present Today */}
-
-// //                 <div className="dashboard-card present-card">
-
-// //                     <div className="dashboard-card-icon">
-// //                         🟢
-// //                     </div>
-
-// //                     <div>
-
-// //                         <p>
-// //                             Present Today
-// //                         </p>
-
-// //                         <h2>
-// //                             {
-// //                                 statistics.present_today
-// //                             }
-// //                         </h2>
-
-// //                     </div>
-
-// //                 </div>
-
-
-// //                 {/* Absent Today */}
-
-// //                 <div className="dashboard-card absent-card">
-
-// //                     <div className="dashboard-card-icon">
-// //                         🔴
-// //                     </div>
-
-// //                     <div>
-
-// //                         <p>
-// //                             Absent Today
-// //                         </p>
-
-// //                         <h2>
-// //                             {
-// //                                 statistics.absent_today
-// //                             }
-// //                         </h2>
-
-// //                     </div>
-
-// //                 </div>
-
-
-// //             </div>
-
-
-// //             {/* ================================= */}
-// //             {/* TODAY ATTENDANCE ANALYTICS */}
-// //             {/* ================================= */}
-
-// //             <div className="analytics-section">
-
-// //                 <div className="analytics-card">
-
-// //                     <h2>
-// //                         Today's Attendance
-// //                     </h2>
-
-// //                     <p>
-// //                         Present vs Absent
-// //                     </p>
-
-
-// //                     <div className="attendance-progress">
-
-// //                         <div
-// //                             className="attendance-progress-bar"
-// //                             style={{
-// //                                 width:
-// //                                     `${attendancePercentage}%`
-// //                             }}
-// //                         />
-
-// //                     </div>
-
-
-// //                     <div className="attendance-percentage">
-
-// //                         <strong>
-// //                             {
-// //                                 attendancePercentage.toFixed(1)
-// //                             }%
-// //                         </strong>
-
-// //                         <span>
-// //                             Attendance Rate
-// //                         </span>
-
-// //                     </div>
-
-// //                 </div>
-
-
-// //                 {/* Present / Absent Summary */}
-
-// //                 <div className="analytics-card">
-
-// //                     <h2>
-// //                         Today's Summary
-// //                     </h2>
-
-
-// //                     <div className="summary-row">
-
-// //                         <span>
-// //                             🟢 Present
-// //                         </span>
-
-// //                         <strong>
-// //                             {
-// //                                 statistics.present_today
-// //                             }
-// //                         </strong>
-
-// //                     </div>
-
-
-// //                     <div className="summary-row">
-
-// //                         <span>
-// //                             🔴 Absent
-// //                         </span>
-
-// //                         <strong>
-// //                             {
-// //                                 statistics.absent_today
-// //                             }
-// //                         </strong>
-
-// //                     </div>
-
-
-// //                     <div className="summary-row">
-
-// //                         <span>
-// //                             👥 Total Marked
-// //                         </span>
-
-// //                         <strong>
-// //                             {
-// //                                 totalToday
-// //                             }
-// //                         </strong>
-
-// //                     </div>
-
-// //                 </div>
-
-// //             </div>
-
-
-// //             {/* ================================= */}
-// //             {/* DEPARTMENT STATISTICS */}
-// //             {/* ================================= */}
-
-// //             <div className="department-section">
-
-// //                 <div className="section-header">
-
-// //                     <div>
-
-// //                         <h2>
-// //                             Department-wise Employees
-// //                         </h2>
-
-// //                         <p>
-// //                             Active employees by department
-// //                         </p>
-
-// //                     </div>
-
-// //                 </div>
-
-
-// //                 <div className="department-grid">
-
-// //                     {
-// //                         statistics.department_wise_count &&
-// //                         statistics.department_wise_count.length > 0
-
-// //                             ? statistics.department_wise_count.map(
-
-// //                                 (department, index) => (
-
-// //                                     <div
-// //                                         className="department-card"
-// //                                         key={index}
-// //                                     >
-
-// //                                         <div className="department-icon">
-// //                                             🏢
-// //                                         </div>
-
-// //                                         <div>
-
-// //                                             <h3>
-// //                                                 {
-// //                                                     department.department
-// //                                                 }
-// //                                             </h3>
-
-// //                                             <p>
-// //                                                 Employees
-// //                                             </p>
-
-// //                                             <strong>
-// //                                                 {
-// //                                                     department.employee_count
-// //                                                 }
-// //                                             </strong>
-
-// //                                         </div>
-
-// //                                     </div>
-
-// //                                 )
-
-// //                             )
-
-// //                             : (
-
-// //                                 <div className="no-data">
-
-// //                                     No department data available.
-
-// //                                 </div>
-
-// //                             )
-
-// //                     }
-
-// //                 </div>
-
-// //             </div>
-
-
-// //         </div>
-
-// //     );
-
-// // }
-
-// // export default Dashboard;
-
-
 import {
     useEffect,
     useState
 } from "react";
-
 import API from "../services/api.js";
-
-
 function Dashboard() {
-
-    // =========================================
-    // STATE
-    // =========================================
-
     const [dashboardData, setDashboardData] = useState({
 
         employees: {
@@ -1039,12 +43,6 @@ function Dashboard() {
 
     const [refreshing, setRefreshing] =
         useState(false);
-
-
-    // =========================================
-    // FETCH DASHBOARD DATA
-    // =========================================
-
     const fetchDashboardData = async (
         isRefresh = false
     ) => {
@@ -1060,22 +58,15 @@ function Dashboard() {
                 setLoading(true);
 
             }
-
-
             setError("");
-
-
             const response =
                 await API.get(
                     "/dashboard/stats"
                 );
-
-
             console.log(
                 "Dashboard Response:",
                 response.data
             );
-
 
             if (
                 response.data &&
@@ -1087,16 +78,12 @@ function Dashboard() {
                 );
 
             }
-
-
         } catch (error) {
 
             console.error(
                 "Dashboard Error:",
                 error
             );
-
-
             setError(
 
                 error.response?.data?.message ||
@@ -1106,31 +93,15 @@ function Dashboard() {
             );
 
         } finally {
-
             setLoading(false);
-
             setRefreshing(false);
-
         }
-
     };
-
-
-    // =========================================
-    // INITIAL LOAD
-    // =========================================
-
     useEffect(() => {
 
         fetchDashboardData();
 
     }, []);
-
-
-    // =========================================
-    // LOADING SCREEN
-    // =========================================
-
     if (loading) {
 
         return (
@@ -1158,12 +129,6 @@ function Dashboard() {
         );
 
     }
-
-
-    // =========================================
-    // ERROR SCREEN
-    // =========================================
-
     if (error) {
 
         return (
@@ -1191,9 +156,7 @@ function Dashboard() {
                         onClick={() =>
                             fetchDashboardData()
                         }
-
                     >
-
                         Try Again
 
                     </button>
@@ -1205,12 +168,6 @@ function Dashboard() {
         );
 
     }
-
-
-    // =========================================
-    // DATA
-    // =========================================
-
     const employees =
         dashboardData.employees || {};
 
@@ -1221,12 +178,6 @@ function Dashboard() {
 
     const departments =
         dashboardData.departments || [];
-
-
-    // =========================================
-    // ATTENDANCE TOTAL
-    // =========================================
-
     const attendanceTotal =
 
         Number(attendance.present || 0) +
@@ -1236,20 +187,11 @@ function Dashboard() {
         Number(attendance.late || 0) +
 
         Number(attendance.leave || 0);
-
-
-    // =========================================
-    // ATTENDANCE PERCENTAGE
-    // =========================================
-
     const attendancePercentage =
 
         attendanceTotal > 0
-
             ?
-
         Math.round(
-
             (
                 Number(
                     attendance.present || 0
@@ -1260,44 +202,25 @@ function Dashboard() {
             ) * 100
 
         )
-
             :
 
         0;
-
-
-    // =========================================
-    // UI
-    // =========================================
-
     return (
-
         <div className="page-content">
-
-
-            {/* =========================================
-                PAGE HEADER
-            ========================================= */}
 
             <div className="dashboard-page-header">
 
                 <div>
 
                     <div className="dashboard-welcome">
-
                         <span>
                             👋
                         </span>
-
                         Welcome back, Admin
-
                     </div>
-
-
                     <h1>
                         Dashboard
                     </h1>
-
 
                     <p>
                         Here's an overview of your
@@ -1305,8 +228,6 @@ function Dashboard() {
                     </p>
 
                 </div>
-
-
                 <button
 
                     className="dashboard-refresh-btn"
@@ -1316,7 +237,6 @@ function Dashboard() {
                     }
 
                     disabled={refreshing}
-
                 >
 
                     <span
@@ -1337,12 +257,6 @@ function Dashboard() {
                 </button>
 
             </div>
-
-
-            {/* =========================================
-                EMPLOYEE STATISTICS
-            ========================================= */}
-
             <div className="dashboard-cards">
 
 
@@ -1461,12 +375,6 @@ function Dashboard() {
 
 
             </div>
-
-
-            {/* =========================================
-                ATTENDANCE SUMMARY
-            ========================================= */}
-
             <div className="dashboard-section-header">
 
                 <div>
@@ -1588,19 +496,7 @@ function Dashboard() {
 
 
             </div>
-
-
-            {/* =========================================
-                BOTTOM GRID
-            ========================================= */}
-
             <div className="dashboard-bottom-grid">
-
-
-                {/* =====================================
-                    DEPARTMENT OVERVIEW
-                ===================================== */}
-
                 <div className="dashboard-panel">
 
                     <div className="panel-header">
@@ -1652,12 +548,8 @@ function Dashboard() {
                                         Math.round(
                                             (count / total) * 100
                                         )
-
                                             :
-
                                         0;
-
-
                                     return (
 
                                         <div
@@ -1686,10 +578,7 @@ function Dashboard() {
                                                 <span>
                                                     {count} employees
                                                 </span>
-
                                             </div>
-
-
                                             <div className="department-progress">
 
                                                 <div
@@ -1731,12 +620,6 @@ function Dashboard() {
                     )}
 
                 </div>
-
-
-                {/* =====================================
-                    ATTENDANCE BREAKDOWN
-                ===================================== */}
-
                 <div className="dashboard-panel">
 
                     <div className="panel-header">

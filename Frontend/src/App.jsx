@@ -29,11 +29,6 @@ function App() {
         <BrowserRouter>
 
             <Routes>
-
-                {/* ========================= */}
-                {/* PUBLIC ROUTES */}
-                {/* ========================= */}
-
                 <Route
                     path="/"
                     element={
@@ -50,52 +45,28 @@ function App() {
                         <Login />
                     }
                 />
-
-
-                {/* ========================= */}
-                {/* PROTECTED ROUTES */}
-                {/* ========================= */}
-
                 <Route
                     element={
                         <ProtectedRoute />
                     }
                 >
-
                     <Route
                         element={
                             <MainLayout />
                         }
                     >
-
-                        {/* ========================= */}
-                        {/* DASHBOARD */}
-                        {/* ========================= */}
-
                         <Route
                             path="/dashboard"
                             element={
                                 <Dashboard />
                             }
                         />
-
-
-                        {/* ========================= */}
-                        {/* EMPLOYEES */}
-                        {/* ========================= */}
-
                         <Route
                             path="/employees"
                             element={
                                 <Employees />
                             }
                         />
-
-
-                        {/* ========================= */}
-                        {/* ADD EMPLOYEE */}
-                        {/* ========================= */}
-
                         <Route
                             path="/employees/add"
                             element={
@@ -103,23 +74,12 @@ function App() {
                             }
                         />
 
-
-                        {/* ========================= */}
-                        {/* EDIT EMPLOYEE */}
-                        {/* ========================= */}
-
                         <Route
                             path="/employees/edit/:id"
                             element={
                                 <EditEmployee />
                             }
                         />
-
-
-                        {/* ========================= */}
-                        {/* ATTENDANCE */}
-                        {/* ========================= */}
-
                         <Route
                             path="/attendance"
                             element={
@@ -130,12 +90,6 @@ function App() {
                     </Route>
 
                 </Route>
-
-
-                {/* ========================= */}
-                {/* UNKNOWN ROUTE */}
-                {/* ========================= */}
-
                 <Route
                     path="*"
                     element={
@@ -145,14 +99,8 @@ function App() {
                         />
                     }
                 />
-
             </Routes>
-
         </BrowserRouter>
-
     );
-
 }
-
-
 export default App;

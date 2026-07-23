@@ -5,8 +5,6 @@ from config import (
     MYSQL_PASSWORD,
     MYSQL_DATABASE
 )
-
-
 def get_db_connection():
 
     connection = mysql.connector.connect(
@@ -15,13 +13,7 @@ def get_db_connection():
         password=MYSQL_PASSWORD,
         database=MYSQL_DATABASE
     )
-
     return connection
-
-# =========================================
-# GET USER BY USERNAME
-# =========================================
-
 def get_user_by_username(username):
 
     connection = get_db_connection()

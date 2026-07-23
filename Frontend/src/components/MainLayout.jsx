@@ -13,12 +13,6 @@ function MainLayout() {
 
     const [sidebarOpen, setSidebarOpen] =
         useState(false);
-
-
-    // =========================================
-    // GET USER DETAILS FROM JWT
-    // =========================================
-
     const getUserDetails = () => {
 
         const token =
@@ -82,12 +76,6 @@ function MainLayout() {
 
     const user =
         getUserDetails();
-
-
-    // =========================================
-    // LOGOUT
-    // =========================================
-
     const handleLogout = () => {
 
         const confirmLogout =
@@ -126,12 +114,6 @@ function MainLayout() {
         );
 
     };
-
-
-    // =========================================
-    // NAVIGATION ITEMS
-    // =========================================
-
     const menuItems = [
 
         {
@@ -158,12 +140,6 @@ function MainLayout() {
     return (
 
         <div className="app-layout">
-
-
-            {/* ================================= */}
-            {/* MOBILE OVERLAY */}
-            {/* ================================= */}
-
             {
                 sidebarOpen && (
 
@@ -176,12 +152,6 @@ function MainLayout() {
 
                 )
             }
-
-
-            {/* ================================= */}
-            {/* SIDEBAR */}
-            {/* ================================= */}
-
             <aside
                 className={
                     sidebarOpen
@@ -324,18 +294,7 @@ function MainLayout() {
 
             </aside>
 
-
-            {/* ================================= */}
-            {/* MAIN AREA */}
-            {/* ================================= */}
-
             <div className="main-area">
-
-
-                {/* ================================= */}
-                {/* TOP NAVBAR */}
-                {/* ================================= */}
-
                 <header className="top-navbar">
 
 
@@ -412,35 +371,15 @@ function MainLayout() {
                                 }
 
                             </span>
-
                         </div>
-
-
                     </div>
-
-
                 </header>
-
-
-                {/* ================================= */}
-                {/* PAGE CONTENT */}
-                {/* ================================= */}
-
                 <main className="content-area">
-
                     <Outlet />
-
                 </main>
-
-
             </div>
-
-
         </div>
 
     );
-
 }
-
-
 export default MainLayout;

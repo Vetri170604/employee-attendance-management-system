@@ -11,25 +11,11 @@ from controllers.employee_controller import (
     edit_employee,
     remove_employee
 )
-
-
-# =========================================
-# CREATE BLUEPRINT
-# =========================================
-
 employee_bp = Blueprint(
     "employee",
     __name__,
     url_prefix="/api/employees"
 )
-
-
-# =========================================
-# GET ALL EMPLOYEES
-# GET /api/employees
-# LOGGED-IN USERS
-# =========================================
-
 employee_bp.route(
     "",
     methods=["GET"]
@@ -38,14 +24,6 @@ employee_bp.route(
         get_employees
     )
 )
-
-
-# =========================================
-# ADD EMPLOYEE
-# POST /api/employees
-# ADMIN ONLY
-# =========================================
-
 employee_bp.route(
     "",
     methods=["POST"]
@@ -54,14 +32,6 @@ employee_bp.route(
         add_employee
     )
 )
-
-
-# =========================================
-# GET EMPLOYEE BY ID
-# GET /api/employees/<id>
-# LOGGED-IN USERS
-# =========================================
-
 employee_bp.route(
     "/<int:employee_id>",
     methods=["GET"]
@@ -70,14 +40,6 @@ employee_bp.route(
         get_employee
     )
 )
-
-
-# =========================================
-# UPDATE EMPLOYEE
-# PUT /api/employees/<id>
-# ADMIN ONLY
-# =========================================
-
 employee_bp.route(
     "/<int:employee_id>",
     methods=["PUT"]
@@ -86,13 +48,6 @@ employee_bp.route(
         edit_employee
     )
 )
-
-
-# =========================================
-# DELETE EMPLOYEE
-# DELETE /api/employees/<id>
-# ADMIN ONLY
-# =========================================
 
 employee_bp.route(
     "/<int:employee_id>",

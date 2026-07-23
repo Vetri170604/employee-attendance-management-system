@@ -1,36 +1,16 @@
 from models.user_model import get_db_connection
-
-
-# =========================================
-# GET DASHBOARD STATISTICS
-# =========================================
-
 def get_dashboard_statistics():
-
     connection = get_db_connection()
-
     cursor = connection.cursor(
         dictionary=True
     )
-
     try:
-
-        # =====================================
-        # TOTAL EMPLOYEES
-        # =====================================
-
         cursor.execute("""
             SELECT COUNT(*) AS total_employees
             FROM employees
         """)
 
         total_employees = cursor.fetchone()
-
-
-        # =====================================
-        # ACTIVE EMPLOYEES
-        # =====================================
-
         cursor.execute("""
             SELECT COUNT(*) AS active_employees
             FROM employees
@@ -38,12 +18,6 @@ def get_dashboard_statistics():
         """)
 
         active_employees = cursor.fetchone()
-
-
-        # =====================================
-        # PRESENT TODAY
-        # =====================================
-
         cursor.execute("""
             SELECT COUNT(*) AS present_today
             FROM attendance
@@ -52,12 +26,6 @@ def get_dashboard_statistics():
         """)
 
         present_today = cursor.fetchone()
-
-
-        # =====================================
-        # ABSENT TODAY
-        # =====================================
-
         cursor.execute("""
             SELECT COUNT(*) AS absent_today
             FROM employees e
@@ -77,12 +45,6 @@ def get_dashboard_statistics():
         """)
 
         absent_today = cursor.fetchone()
-
-
-        # =====================================
-        # DEPARTMENT-WISE EMPLOYEE COUNT
-        # =====================================
-
         cursor.execute("""
             SELECT
                 department,
@@ -98,12 +60,6 @@ def get_dashboard_statistics():
         """)
 
         department_count = cursor.fetchall()
-
-
-        # =====================================
-        # RETURN DATA
-        # =====================================
-
         return {
 
             "total_employees":
@@ -130,8 +86,6 @@ def get_dashboard_statistics():
                 department_count
 
         }
-
-
     finally:
 
         cursor.close()
